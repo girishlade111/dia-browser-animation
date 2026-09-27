@@ -1,30 +1,73 @@
 # Dia Browser Animation
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+An interactive UI concept that recreates the signature **Dia browser "ask anything" animation** — a glowing, lightning-like pulse that sweeps around the search box while the background floats upward. Built with Next.js, Tailwind CSS, and hand-crafted SVG + CSS keyframe animations.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/gileb64375-5584s-projects/v0-dia-browser-animation)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/cLTSJ0NfUfv)
+Originally prototyped with [v0.app](https://v0.app).
 
-## Overview
+## What it does
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+- Renders a dark, Dia-browser-inspired "Ask anything..." search box centered on screen (logo, input, mic/send buttons).
+- A **Play Animation** button triggers a ~1s animation sequence:
+  - A radial-gradient light pulse sweeps around the search box border via an SVG border mask (two glowing orbs traveling along the outline with blur + drop-shadow).
+  - Background artwork floats upward behind the search box (`animate-float-up`).
+- Animation resets automatically after ~1 second; the button is disabled while playing.
+- Purely visual/presentational — the search input is decorative (no backend query).
+
+## Features
+
+- SVG masked border-lightning animation (radial gradients, border mask, blur filters)
+- CSS keyframe float-up background layer
+- Dark theme (`#1a1a1a` canvas, `#2a2a2a` card) with theme-provider support
+- Loading state (`app/loading.tsx`)
+- Responsive, centered layout; works on mobile and desktop
+
+## Tech stack
+
+- **Framework:** Next.js 15 (App Router) + React 19 + TypeScript
+- **Styling:** Tailwind CSS, custom CSS keyframes
+- **Icons:** `lucide-react`
+- **Theming:** `next-themes`
+- Fully client-side — no API routes, no database
+
+## Quick start
+
+```bash
+npm install        # or: pnpm install
+npm run dev        # open http://localhost:3000, click "Play Animation"
+```
+
+Production build:
+
+```bash
+npm run build
+npm start
+```
+
+## Project structure
+
+```
+app/
+  layout.tsx        Root layout, theme provider
+  page.tsx          The animated search-box scene (SVG pulse + floating background)
+  loading.tsx       Loading state
+  globals.css       Global styles + animation keyframes
+components/
+  theme-provider.tsx
+lib/
+  utils.ts          Classname helpers
+public/images/      Artwork (logo, background pieces)
+```
+
+## Environment variables
+
+None required. The app is fully client-side.
 
 ## Deployment
 
-Your project is live at:
+- **Static export ready:** no API routes or server actions, so it can be built as a static site. Set `output: "export"` in `next.config.mjs` and run `npm run build` to produce an `out/` directory.
+- **GitHub Pages:** this repo ships with a `gh-pages` branch hosting the static export at `https://girishlade111.github.io/dia-browser-animation/`.
+- **Vercel:** also deployable as a standard Next.js app.
 
-**[https://vercel.com/gileb64375-5584s-projects/v0-dia-browser-animation](https://vercel.com/gileb64375-5584s-projects/v0-dia-browser-animation)**
+---
 
-## Build your app
-
-Continue building your app on:
-
-**[https://v0.app/chat/projects/cLTSJ0NfUfv](https://v0.app/chat/projects/cLTSJ0NfUfv)**
-
-## How It Works
-
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Built by Girish Lade — [ladestack.in](https://ladestack.in)
